@@ -1,14 +1,14 @@
 package org.bitbucket.theimplementer.mipsdisassembler;
 
-import com.sun.xml.internal.messaging.saaj.util.ByteInputStream;
 import net.emaze.dysfunctional.Applications;
 import net.emaze.dysfunctional.contracts.dbc;
 import net.emaze.dysfunctional.dispatching.delegates.Delegate;
 import org.bitbucket.theimplementer.mipsdisassembler.instructions.Instruction;
 
+import java.io.InputStream;
 import java.util.List;
 
-public class DefaultMipsDisassembler implements Delegate<List<Instruction>, ByteInputStream> {
+public class DefaultMipsDisassembler implements Delegate<List<Instruction>, InputStream> {
 
     private final Delegate<Instruction, Integer> instructionParser;
 
@@ -18,7 +18,7 @@ public class DefaultMipsDisassembler implements Delegate<List<Instruction>, Byte
     }
 
     @Override
-    public List<Instruction> perform(ByteInputStream stream) {
+    public List<Instruction> perform(InputStream stream) {
         final List<Integer> instructionsAsIntegers = new StreamToIntegers().perform(stream);
         return Applications.map(instructionsAsIntegers, instructionParser);
     }
