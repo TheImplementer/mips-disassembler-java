@@ -2,6 +2,7 @@ package org.bitbucket.theimplementer.mipsdisassembler;
 
 import com.sun.xml.internal.messaging.saaj.util.ByteInputStream;
 import net.emaze.dysfunctional.dispatching.delegates.Delegate;
+import org.bitbucket.theimplementer.mipsdisassembler.instructions.Instruction;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

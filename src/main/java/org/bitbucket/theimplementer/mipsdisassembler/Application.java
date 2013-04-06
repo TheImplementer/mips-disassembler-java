@@ -4,6 +4,7 @@ import com.sun.xml.internal.messaging.saaj.util.ByteInputStream;
 import net.emaze.dysfunctional.Applications;
 import net.emaze.dysfunctional.Casts;
 import net.emaze.dysfunctional.dispatching.delegates.Delegate;
+import org.bitbucket.theimplementer.mipsdisassembler.instructions.Instruction;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.io.ByteArrayInputStream;
