@@ -1,5 +1,7 @@
 package org.bitbucket.theimplementer.mipsdisassembler.instructions;
 
+import org.bitbucket.theimplementer.mipsdisassembler.instructions.jtype.JInstruction;
+import org.bitbucket.theimplementer.mipsdisassembler.instructions.jtype.JalInstruction;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -9,7 +11,7 @@ public class JTypeInstructionDecoderTest {
 
     @Test
     public void acceptsJTypeInstructions() {
-        final boolean got = instance.accept(JTypeInstructionDecoder.JTYPE_INSTRUCTION_SIGNATURE);
+        final boolean got = instance.accept(JTypeInstructionDecoder.J_INSTRUCTION_OPCODE << 26);
         Assert.assertEquals(true, got);
     }
 
@@ -26,14 +28,21 @@ public class JTypeInstructionDecoderTest {
 
     @Test
     public void performYieldsInstruction() {
-        final Instruction got = instance.perform(0);
+        final Instruction got = instance.perform(JTypeInstructionDecoder.J_INSTRUCTION_OPCODE << 26);
         Assert.assertNotNull(got);
     }
 
     @Test
     public void performYieldsJInstructionWithCorrectTarget() {
         final JInstruction expected = new JInstruction(3);
-        final Instruction got = instance.perform(new Integer(JTypeInstructionDecoder.JTYPE_INSTRUCTION_SIGNATURE | 3));
+        final Instruction got = instance.perform(new Integer((JTypeInstructionDecoder.J_INSTRUCTION_OPCODE << 26) | 3));
+        Assert.assertEquals(expected, got);
+    }
+    
+    @Test
+    public void performYieldsJalInstructionWithCorrectTarget() {
+        final JalInstruction expected = new JalInstruction(3);
+        final Instruction got = instance.perform(new Integer((JTypeInstructionDecoder.JAL_INSTRUCTION_OPCODE << 26) | 3));
         Assert.assertEquals(expected, got);
     }
 
