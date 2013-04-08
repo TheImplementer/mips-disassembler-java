@@ -1,7 +1,5 @@
 package org.bitbucket.theimplementer.mipsdisassembler.instructions;
 
-import org.bitbucket.theimplementer.mipsdisassembler.instructions.jtype.JInstruction;
-import org.bitbucket.theimplementer.mipsdisassembler.instructions.jtype.JalInstruction;
 import org.junit.Assert;
 import org.junit.Test;
 

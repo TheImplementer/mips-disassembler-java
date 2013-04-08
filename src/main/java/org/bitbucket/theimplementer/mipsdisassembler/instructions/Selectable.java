@@ -1,4 +1,4 @@
-package org.bitbucket.theimplementer.mipsdisassembler;
+package org.bitbucket.theimplementer.mipsdisassembler.instructions;
 
 public interface Selectable<T> {
 

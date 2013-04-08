@@ -1,4 +1,4 @@
-package org.bitbucket.theimplementer.mipsdisassembler.instructions.jtype;
+package org.bitbucket.theimplementer.mipsdisassembler.instructions;
 
 import net.emaze.dysfunctional.equality.EqualsBuilder;
 import net.emaze.dysfunctional.hashing.HashCodeBuilder;

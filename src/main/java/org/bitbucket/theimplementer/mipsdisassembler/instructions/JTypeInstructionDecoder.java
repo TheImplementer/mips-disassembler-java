@@ -1,8 +1,6 @@
 package org.bitbucket.theimplementer.mipsdisassembler.instructions;
 
-import org.bitbucket.theimplementer.mipsdisassembler.instructions.jtype.JInstruction;
 import net.emaze.dysfunctional.contracts.dbc;
-import org.bitbucket.theimplementer.mipsdisassembler.instructions.jtype.JalInstruction;
 
 public class JTypeInstructionDecoder implements InstructionDecoder {
 
