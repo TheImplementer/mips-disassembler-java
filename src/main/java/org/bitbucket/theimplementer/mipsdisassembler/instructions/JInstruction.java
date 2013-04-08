@@ -2,7 +2,6 @@ package org.bitbucket.theimplementer.mipsdisassembler.instructions;
 
 import net.emaze.dysfunctional.equality.EqualsBuilder;
 import net.emaze.dysfunctional.hashing.HashCodeBuilder;
-import org.bitbucket.theimplementer.mipsdisassembler.instructions.Instruction;
 
 public class JInstruction implements Instruction {
 
@@ -19,7 +18,7 @@ public class JInstruction implements Instruction {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof JInstruction == false) {
+        if (!(obj instanceof JInstruction)) {
             return false;
         }
         final JInstruction other = (JInstruction) obj;

@@ -26,7 +26,7 @@ public class InstructionDecoderSelector implements Delegate<InstructionDecoder, 
             }
         });
         if (!maybeDecoder.hasValue()) {
-            throw new RuntimeException(String.format("cannot find a decoder for specified instruction: %s", Integer.toHexString(instruction)));
+            throw new NoInstructionDecoderFoundError(instruction);
         }
         return maybeDecoder.value();
     }
