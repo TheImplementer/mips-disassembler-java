@@ -1,7 +1,8 @@
-package org.bitbucket.theimplementer.mipsdisassembler.instructions;
+package org.bitbucket.theimplementer.mipsdisassembler.instructions.jtype;
 
 import net.emaze.dysfunctional.equality.EqualsBuilder;
 import net.emaze.dysfunctional.hashing.HashCodeBuilder;
+import org.bitbucket.theimplementer.mipsdisassembler.instructions.Instruction;
 
 public class JInstruction implements Instruction {
 
@@ -27,6 +28,6 @@ public class JInstruction implements Instruction {
 
     @Override
     public String toString() {
-        return String.format("j %s", Integer.toHexString(target));
+        return String.format("j 0x%s", Integer.toHexString(target));
     }
 }
