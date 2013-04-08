@@ -43,6 +43,11 @@ public class JTypeInstructionDecoderTest {
         final Instruction got = instance.perform(new Integer((JTypeInstructionDecoder.JAL_INSTRUCTION_OPCODE << 26) | 3));
         Assert.assertEquals(expected, got);
     }
+    
+    @Test(expected = UnknownInstructionException.class)
+    public void performThrowsWithAnUnsupportedInstruction() {
+        instance.perform(0);
+    }
 
     @Test(expected = IllegalArgumentException.class)
     public void performThrowsWithNullInstruction() {
