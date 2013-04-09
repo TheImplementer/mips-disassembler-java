@@ -25,7 +25,7 @@ public class JTypeInstructionDecoderTest {
     }
 
     @Test
-    public void performYieldsInstruction() {
+    public void performYieldsInstructionIfSupported() {
         final Instruction got = instance.perform(JTypeInstructionDecoder.J_INSTRUCTION_OPCODE << 26);
         Assert.assertNotNull(got);
     }
