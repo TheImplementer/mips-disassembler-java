@@ -44,9 +44,16 @@ public class RTypeInstructionDecoderTest {
         Assert.assertEquals(expected, got);
     }
     
-    @Test(expected = UnknownInstructionException.class)
-    public void performThrowsIfInstructionIsNotSupported() {
-        instance.perform(0);
+    @Test
+    public void canDecodeSllInstructions() {
+        final SllInstruction expected = new SllInstruction(Register.ZR, Register.ZR, 0);
+        final Instruction got = instance.perform(RTypeInstructionDecoder.SLL_INSTRUCTION_FUNCTION);
+        Assert.assertEquals(expected, got);
+        
     }
     
+    @Test(expected = UnknownInstructionException.class)
+    public void performThrowsIfInstructionIsNotSupported() {
+        instance.perform(0xff);
+    }
 }
