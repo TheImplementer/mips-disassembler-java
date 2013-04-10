@@ -23,6 +23,11 @@ public class RTypeInstructionDecoder implements InstructionDecoder {
     public static final int JALR_INSTRUCTION_FUNCTION = 0x09;
     public static final int SYSCALL_INSTRUCTION_FUNCTION = 0x0c;
     public static final int BREAK_INSTRUCTION_FUNCTION = 0x0d;
+    public static final int MFHI_INSTRUCTION_FUNCTION = 0x10;
+    public static final int MTHI_INSTRUCTION_FUNCTION = 0x11;
+    public static final int MFLO_INSTRUCTION_FUNCTION = 0x12;
+    public static final int MTLO_INSTRUCTION_FUNCTION = 0x13;
+
 
 
     @Override
@@ -57,6 +62,15 @@ public class RTypeInstructionDecoder implements InstructionDecoder {
                 return new SyscallInstruction();
             case BREAK_INSTRUCTION_FUNCTION:
                 return new BreakInstruction();
+            case MFHI_INSTRUCTION_FUNCTION:
+                return new MfhiInstruction(rdRegister);
+            case MTHI_INSTRUCTION_FUNCTION:
+                return new MthiInstruction(rsRegister);
+            case MFLO_INSTRUCTION_FUNCTION:
+                return new MfloInstruction(rdRegister);
+            case MTLO_INSTRUCTION_FUNCTION:
+                return new MtloInstruction(rsRegister);
+
         }
 
         throw new UnknownInstructionException(function);
