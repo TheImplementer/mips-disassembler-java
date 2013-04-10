@@ -107,6 +107,22 @@ public class RTypeInstructionDecoderTest {
         Assert.assertEquals(expected, got);
 
     }
+
+    @Test
+    public void canDecodeSyscallInstructions() {
+        final SyscallInstruction expected = new SyscallInstruction();
+        final Instruction got = instance.perform(RTypeInstructionDecoder.SYSCALL_INSTRUCTION_FUNCTION);
+        Assert.assertEquals(expected, got);
+
+    }
+
+    @Test
+    public void canDecodeBreakInstructions() {
+        final BreakInstruction expected = new BreakInstruction();
+        final Instruction got = instance.perform(RTypeInstructionDecoder.BREAK_INSTRUCTION_FUNCTION);
+        Assert.assertEquals(expected, got);
+
+    }
     
     @Test(expected = UnknownInstructionException.class)
     public void performThrowsIfInstructionIsNotSupported() {

@@ -21,6 +21,8 @@ public class RTypeInstructionDecoder implements InstructionDecoder {
     public static final int SRAV_INSTRUCTION_FUNCTION = 0x07;
     public static final int JR_INSTRUCTION_FUNCTION = 0x08;
     public static final int JALR_INSTRUCTION_FUNCTION = 0x09;
+    public static final int SYSCALL_INSTRUCTION_FUNCTION = 0x0c;
+    public static final int BREAK_INSTRUCTION_FUNCTION = 0x0d;
 
 
     @Override
@@ -51,7 +53,10 @@ public class RTypeInstructionDecoder implements InstructionDecoder {
                 return new JrInstruction(rsRegister);
             case JALR_INSTRUCTION_FUNCTION:
                 return new JalrInstruction(rdRegister, rsRegister);
-
+            case SYSCALL_INSTRUCTION_FUNCTION:
+                return new SyscallInstruction();
+            case BREAK_INSTRUCTION_FUNCTION:
+                return new BreakInstruction();
         }
 
         throw new UnknownInstructionException(function);
