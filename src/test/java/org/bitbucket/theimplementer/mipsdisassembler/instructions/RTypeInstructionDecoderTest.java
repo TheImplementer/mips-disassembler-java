@@ -26,7 +26,7 @@ public class RTypeInstructionDecoderTest {
 
     @Test
     public void performYieldsInstructionIfSupported() {
-        final Instruction got = instance.perform(0);
+        final Instruction got = instance.perform(RTypeInstructionDecoder.ADD_INSTRUCTION_FUNCTION);
         Assert.assertNotNull(got);
     }
 
@@ -36,4 +36,17 @@ public class RTypeInstructionDecoderTest {
         final Instruction got = instance.perform(RTypeInstructionDecoder.ADD_INSTRUCTION_FUNCTION);
         Assert.assertEquals(expected, got);
     }
+    
+    @Test
+    public void canDecodeAdduInstructions() {
+        final AdduInstruction expected = new AdduInstruction(Register.ZR, Register.ZR, Register.ZR);
+        final Instruction got = instance.perform(RTypeInstructionDecoder.ADDU_INSTRUCTION_FUNCTION);
+        Assert.assertEquals(expected, got);
+    }
+    
+    @Test(expected = UnknownInstructionException.class)
+    public void performThrowsIfInstructionIsNotSupported() {
+        instance.perform(0);
+    }
+    
 }

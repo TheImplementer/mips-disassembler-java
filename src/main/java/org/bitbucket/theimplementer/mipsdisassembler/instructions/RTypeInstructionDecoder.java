@@ -11,6 +11,7 @@ public class RTypeInstructionDecoder implements InstructionDecoder {
     public static final int RS_REGISTER_BITMASK = 0x3e00000;
 
     public static final int ADD_INSTRUCTION_FUNCTION = 0x20;
+    public static final int ADDU_INSTRUCTION_FUNCTION = 0x21;
 
     @Override
     public Instruction perform(Integer instruction) {
@@ -21,7 +22,8 @@ public class RTypeInstructionDecoder implements InstructionDecoder {
         switch (function) {
             case ADD_INSTRUCTION_FUNCTION:
                 return new AddInstruction(rdRegister, rsRegister, rtRegister);
-
+            case ADDU_INSTRUCTION_FUNCTION:
+                return new AdduInstruction(rdRegister, rsRegister, rsRegister);
         }
 
         throw new UnknownInstructionException(function);
