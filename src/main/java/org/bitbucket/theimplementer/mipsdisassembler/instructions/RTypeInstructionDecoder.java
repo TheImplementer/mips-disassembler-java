@@ -14,6 +14,14 @@ public class RTypeInstructionDecoder implements InstructionDecoder {
     public static final int ADD_INSTRUCTION_FUNCTION = 0x20;
     public static final int ADDU_INSTRUCTION_FUNCTION = 0x21;
     public static final int SLL_INSTRUCTION_FUNCTION = 0x00;
+    public static final int SRL_INSTRUCTION_FUNCTION = 0x02;
+    public static final int SRA_INSTRUCTION_FUNCTION = 0x03;
+    public static final int SLLV_INSTRUCTION_FUNCTION = 0x04;
+    public static final int SRLV_INSTRUCTION_FUNCTION = 0x06;
+    public static final int SRAV_INSTRUCTION_FUNCTION = 0x07;
+    public static final int JR_INSTRUCTION_FUNCTION = 0x08;
+    public static final int JALR_INSTRUCTION_FUNCTION = 0x09;
+
 
     @Override
     public Instruction perform(Integer instruction) {
@@ -26,9 +34,24 @@ public class RTypeInstructionDecoder implements InstructionDecoder {
             case ADD_INSTRUCTION_FUNCTION:
                 return new AddInstruction(rdRegister, rsRegister, rtRegister);
             case ADDU_INSTRUCTION_FUNCTION:
-                return new AdduInstruction(rdRegister, rsRegister, rsRegister);
+                return new AdduInstruction(rdRegister, rsRegister, rtRegister);
             case SLL_INSTRUCTION_FUNCTION:
-                return new SllInstruction(rdRegister, rsRegister, shiftAmount);
+                return new SllInstruction(rdRegister, rtRegister, shiftAmount);
+            case SRL_INSTRUCTION_FUNCTION:
+                return new SrlInstruction(rdRegister, rtRegister, shiftAmount);
+            case SRA_INSTRUCTION_FUNCTION:
+                return new SraInstruction(rdRegister, rtRegister, shiftAmount);
+            case SLLV_INSTRUCTION_FUNCTION:
+                return new SllvInstruction(rdRegister, rtRegister, rsRegister);
+            case SRLV_INSTRUCTION_FUNCTION:
+                return new SrlvInstruction(rdRegister, rtRegister, rsRegister);
+            case SRAV_INSTRUCTION_FUNCTION:
+                return new SravInstruction(rdRegister, rtRegister, rsRegister);
+            case JR_INSTRUCTION_FUNCTION:
+                return new JrInstruction(rsRegister);
+            case JALR_INSTRUCTION_FUNCTION:
+                return new JalrInstruction(rdRegister, rsRegister);
+
         }
 
         throw new UnknownInstructionException(function);

@@ -51,6 +51,62 @@ public class RTypeInstructionDecoderTest {
         Assert.assertEquals(expected, got);
         
     }
+
+    @Test
+    public void canDecodeSrlInstructions() {
+        final SrlInstruction expected = new SrlInstruction(Register.ZR, Register.ZR, 0);
+        final Instruction got = instance.perform(RTypeInstructionDecoder.SRL_INSTRUCTION_FUNCTION);
+        Assert.assertEquals(expected, got);
+
+    }
+
+    @Test
+    public void canDecodeSraInstructions() {
+        final SraInstruction expected = new SraInstruction(Register.ZR, Register.ZR, 0);
+        final Instruction got = instance.perform(RTypeInstructionDecoder.SRA_INSTRUCTION_FUNCTION);
+        Assert.assertEquals(expected, got);
+
+    }
+
+    @Test
+    public void canDecodeSllvInstructions() {
+        final SllvInstruction expected = new SllvInstruction(Register.ZR, Register.ZR, Register.ZR);
+        final Instruction got = instance.perform(RTypeInstructionDecoder.SLLV_INSTRUCTION_FUNCTION);
+        Assert.assertEquals(expected, got);
+
+    }
+
+    @Test
+    public void canDecodeSrlvInstructions() {
+        final SrlvInstruction expected = new SrlvInstruction(Register.ZR, Register.ZR, Register.ZR);
+        final Instruction got = instance.perform(RTypeInstructionDecoder.SRLV_INSTRUCTION_FUNCTION);
+        Assert.assertEquals(expected, got);
+
+    }
+
+    @Test
+    public void canDecodeSravInstructions() {
+        final SravInstruction expected = new SravInstruction(Register.ZR, Register.ZR, Register.ZR);
+        final Instruction got = instance.perform(RTypeInstructionDecoder.SRAV_INSTRUCTION_FUNCTION);
+        Assert.assertEquals(expected, got);
+
+    }
+
+    @Test
+    public void canDecodeJrInstructions() {
+        final JrInstruction expected = new JrInstruction(Register.ZR);
+        final Instruction got = instance.perform(RTypeInstructionDecoder.JR_INSTRUCTION_FUNCTION);
+        Assert.assertEquals(expected, got);
+
+    }
+
+    @Test
+    public void canDecodeJalrInstructions() {
+        final JalrInstruction expected = new JalrInstruction(Register.ZR, Register.ZR);
+        final Instruction got = instance.perform(RTypeInstructionDecoder.JALR_INSTRUCTION_FUNCTION);
+        Assert.assertEquals(expected, got);
+
+    }
     
     @Test(expected = UnknownInstructionException.class)
     public void performThrowsIfInstructionIsNotSupported() {
