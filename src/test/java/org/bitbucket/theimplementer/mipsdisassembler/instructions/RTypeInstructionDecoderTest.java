@@ -142,6 +142,34 @@ public class RTypeInstructionDecoderTest {
         Assert.assertEquals(expected, got);
     }
 
+    @Test
+    public void canDecodeMultInstructions() {
+        final MultInstruction expected = new MultInstruction(Register.ZR, Register.ZR);
+        final Instruction got = instance.perform(RTypeInstructionDecoder.MULT_INSTRUCTION_FUNCTION);
+        Assert.assertEquals(expected, got);
+    }
+
+    @Test
+    public void canDecodeMultuInstructions() {
+        final MultuInstruction expected = new MultuInstruction(Register.ZR, Register.ZR);
+        final Instruction got = instance.perform(RTypeInstructionDecoder.MULTU_INSTRUCTION_FUNCTION);
+        Assert.assertEquals(expected, got);
+    }
+
+    @Test
+    public void canDecodeDivInstructions() {
+        final DivInstruction expected = new DivInstruction(Register.ZR, Register.ZR);
+        final Instruction got = instance.perform(RTypeInstructionDecoder.DIV_INSTRUCTION_FUNCTION);
+        Assert.assertEquals(expected, got);
+    }
+
+    @Test
+    public void canDecodeDivuInstructions() {
+        final DivuInstruction expected = new DivuInstruction(Register.ZR, Register.ZR);
+        final Instruction got = instance.perform(RTypeInstructionDecoder.DIVU_INSTRUCTION_FUNCTION);
+        Assert.assertEquals(expected, got);
+    }
+
 
     @Test(expected = UnknownInstructionException.class)
     public void performThrowsIfInstructionIsNotSupported() {

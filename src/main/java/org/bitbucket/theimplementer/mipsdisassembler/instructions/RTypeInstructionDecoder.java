@@ -27,6 +27,10 @@ public class RTypeInstructionDecoder implements InstructionDecoder {
     public static final int MTHI_INSTRUCTION_FUNCTION = 0x11;
     public static final int MFLO_INSTRUCTION_FUNCTION = 0x12;
     public static final int MTLO_INSTRUCTION_FUNCTION = 0x13;
+    public static final int MULT_INSTRUCTION_FUNCTION = 0x18;
+    public static final int MULTU_INSTRUCTION_FUNCTION = 0x19;
+    public static final int DIV_INSTRUCTION_FUNCTION = 0x1a;
+    public static final int DIVU_INSTRUCTION_FUNCTION = 0x1b;
 
 
 
@@ -70,6 +74,14 @@ public class RTypeInstructionDecoder implements InstructionDecoder {
                 return new MfloInstruction(rdRegister);
             case MTLO_INSTRUCTION_FUNCTION:
                 return new MtloInstruction(rsRegister);
+            case MULT_INSTRUCTION_FUNCTION:
+                return new MultInstruction(rsRegister, rtRegister);
+            case MULTU_INSTRUCTION_FUNCTION:
+                return new MultuInstruction(rsRegister, rtRegister);
+            case DIV_INSTRUCTION_FUNCTION:
+                return new DivInstruction(rsRegister, rtRegister);
+            case DIVU_INSTRUCTION_FUNCTION:
+                return new DivuInstruction(rsRegister, rtRegister);
 
         }
 
