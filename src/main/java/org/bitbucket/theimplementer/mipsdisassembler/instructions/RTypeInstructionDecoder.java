@@ -11,8 +11,6 @@ public class RTypeInstructionDecoder implements InstructionDecoder {
     public static final int RS_REGISTER_BITMASK = 0x3e00000;
     public static final int SHIFT_AMOUNT_BITMASK = 0x7a0;
 
-    public static final int ADD_INSTRUCTION_FUNCTION = 0x20;
-    public static final int ADDU_INSTRUCTION_FUNCTION = 0x21;
     public static final int SLL_INSTRUCTION_FUNCTION = 0x00;
     public static final int SRL_INSTRUCTION_FUNCTION = 0x02;
     public static final int SRA_INSTRUCTION_FUNCTION = 0x03;
@@ -31,8 +29,10 @@ public class RTypeInstructionDecoder implements InstructionDecoder {
     public static final int MULTU_INSTRUCTION_FUNCTION = 0x19;
     public static final int DIV_INSTRUCTION_FUNCTION = 0x1a;
     public static final int DIVU_INSTRUCTION_FUNCTION = 0x1b;
-
-
+    public static final int ADD_INSTRUCTION_FUNCTION = 0x20;
+    public static final int ADDU_INSTRUCTION_FUNCTION = 0x21;
+    public static final int SUB_INSTRUCTION_FUNCTION = 0x22;
+    public static final int SUBU_INSTRUCTION_FUNCTION = 0x23;
 
     @Override
     public Instruction perform(Integer instruction) {
@@ -42,10 +42,6 @@ public class RTypeInstructionDecoder implements InstructionDecoder {
         final Register rtRegister = Register.fromValue((instruction.intValue() & RT_REGISTER_BITMASK) >> 16);
         final Register rsRegister = Register.fromValue((instruction.intValue() & RS_REGISTER_BITMASK) >> 21);
         switch (function) {
-            case ADD_INSTRUCTION_FUNCTION:
-                return new AddInstruction(rdRegister, rsRegister, rtRegister);
-            case ADDU_INSTRUCTION_FUNCTION:
-                return new AdduInstruction(rdRegister, rsRegister, rtRegister);
             case SLL_INSTRUCTION_FUNCTION:
                 return new SllInstruction(rdRegister, rtRegister, shiftAmount);
             case SRL_INSTRUCTION_FUNCTION:
@@ -82,6 +78,14 @@ public class RTypeInstructionDecoder implements InstructionDecoder {
                 return new DivInstruction(rsRegister, rtRegister);
             case DIVU_INSTRUCTION_FUNCTION:
                 return new DivuInstruction(rsRegister, rtRegister);
+            case ADD_INSTRUCTION_FUNCTION:
+                return new AddInstruction(rdRegister, rsRegister, rtRegister);
+            case ADDU_INSTRUCTION_FUNCTION:
+                return new AdduInstruction(rdRegister, rsRegister, rtRegister);
+            case SUB_INSTRUCTION_FUNCTION:
+                return new SubInstruction(rdRegister, rsRegister, rtRegister);
+            case SUBU_INSTRUCTION_FUNCTION:
+                return new SubuInstruction(rdRegister, rsRegister, rtRegister);
 
         }
 
