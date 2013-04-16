@@ -212,6 +212,20 @@ public class RTypeInstructionDecoderTest {
         Assert.assertEquals(expected, got);
     }
 
+    @Test
+    public void canDecodeSltInstructions() {
+        final SltInstruction expected = new SltInstruction(Register.ZR, Register.ZR, Register.ZR);
+        final Instruction got = instance.perform(RTypeInstructionDecoder.SLT_INSTRUCTION_FUNCTION);
+        Assert.assertEquals(expected, got);
+    }
+
+    @Test
+    public void canDecodeSltuInstructions() {
+        final SltuInstruction expected = new SltuInstruction(Register.ZR, Register.ZR, Register.ZR);
+        final Instruction got = instance.perform(RTypeInstructionDecoder.SLTU_INSTRUCTION_FUNCTION);
+        Assert.assertEquals(expected, got);
+    }
+
 
     @Test(expected = UnknownInstructionException.class)
     public void performThrowsIfInstructionIsNotSupported() {

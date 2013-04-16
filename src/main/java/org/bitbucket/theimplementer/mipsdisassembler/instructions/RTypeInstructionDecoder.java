@@ -37,6 +37,8 @@ public class RTypeInstructionDecoder implements InstructionDecoder {
     public static final int OR_INSTRUCTION_FUNCTION = 0x25;
     public static final int XOR_INSTRUCTION_FUNCTION = 0x26;
     public static final int NOR_INSTRUCTION_FUNCTION = 0x27;
+    public static final int SLT_INSTRUCTION_FUNCTION = 0x2a;
+    public static final int SLTU_INSTRUCTION_FUNCTION = 0x2b;
 
     @Override
     public Instruction perform(Integer instruction) {
@@ -98,6 +100,10 @@ public class RTypeInstructionDecoder implements InstructionDecoder {
                 return new XorInstruction(rdRegister, rsRegister, rtRegister);
             case NOR_INSTRUCTION_FUNCTION:
                 return new NorInstruction(rdRegister, rsRegister, rtRegister);
+            case SLT_INSTRUCTION_FUNCTION:
+                return new SltInstruction(rdRegister, rsRegister, rtRegister);
+            case SLTU_INSTRUCTION_FUNCTION:
+                return new SltuInstruction(rdRegister, rsRegister, rtRegister);
         }
 
         throw new UnknownInstructionException(function);
