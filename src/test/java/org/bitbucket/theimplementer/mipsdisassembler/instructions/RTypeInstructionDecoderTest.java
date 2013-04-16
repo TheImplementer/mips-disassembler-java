@@ -184,6 +184,34 @@ public class RTypeInstructionDecoderTest {
         Assert.assertEquals(expected, got);
     }
 
+    @Test
+    public void canDecodeAndInstructions() {
+        final AndInstruction expected = new AndInstruction(Register.ZR, Register.ZR, Register.ZR);
+        final Instruction got = instance.perform(RTypeInstructionDecoder.AND_INSTRUCTION_FUNCTION);
+        Assert.assertEquals(expected, got);
+    }
+
+    @Test
+    public void canDecodeOrInstructions() {
+        final OrInstruction expected = new OrInstruction(Register.ZR, Register.ZR, Register.ZR);
+        final Instruction got = instance.perform(RTypeInstructionDecoder.OR_INSTRUCTION_FUNCTION);
+        Assert.assertEquals(expected, got);
+    }
+
+    @Test
+    public void canDecodeXorInstructions() {
+        final XorInstruction expected = new XorInstruction(Register.ZR, Register.ZR, Register.ZR);
+        final Instruction got = instance.perform(RTypeInstructionDecoder.XOR_INSTRUCTION_FUNCTION);
+        Assert.assertEquals(expected, got);
+    }
+
+    @Test
+    public void canDecodeNorInstructions() {
+        final NorInstruction expected = new NorInstruction(Register.ZR, Register.ZR, Register.ZR);
+        final Instruction got = instance.perform(RTypeInstructionDecoder.NOR_INSTRUCTION_FUNCTION);
+        Assert.assertEquals(expected, got);
+    }
+
 
     @Test(expected = UnknownInstructionException.class)
     public void performThrowsIfInstructionIsNotSupported() {

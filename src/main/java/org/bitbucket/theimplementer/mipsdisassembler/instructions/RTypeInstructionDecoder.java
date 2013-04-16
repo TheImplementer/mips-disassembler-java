@@ -33,6 +33,10 @@ public class RTypeInstructionDecoder implements InstructionDecoder {
     public static final int ADDU_INSTRUCTION_FUNCTION = 0x21;
     public static final int SUB_INSTRUCTION_FUNCTION = 0x22;
     public static final int SUBU_INSTRUCTION_FUNCTION = 0x23;
+    public static final int AND_INSTRUCTION_FUNCTION = 0x24;
+    public static final int OR_INSTRUCTION_FUNCTION = 0x25;
+    public static final int XOR_INSTRUCTION_FUNCTION = 0x26;
+    public static final int NOR_INSTRUCTION_FUNCTION = 0x27;
 
     @Override
     public Instruction perform(Integer instruction) {
@@ -86,7 +90,14 @@ public class RTypeInstructionDecoder implements InstructionDecoder {
                 return new SubInstruction(rdRegister, rsRegister, rtRegister);
             case SUBU_INSTRUCTION_FUNCTION:
                 return new SubuInstruction(rdRegister, rsRegister, rtRegister);
-
+            case AND_INSTRUCTION_FUNCTION:
+                return new AndInstruction(rdRegister, rsRegister, rtRegister);
+            case OR_INSTRUCTION_FUNCTION:
+                return new OrInstruction(rdRegister, rsRegister, rtRegister);
+            case XOR_INSTRUCTION_FUNCTION:
+                return new XorInstruction(rdRegister, rsRegister, rtRegister);
+            case NOR_INSTRUCTION_FUNCTION:
+                return new NorInstruction(rdRegister, rsRegister, rtRegister);
         }
 
         throw new UnknownInstructionException(function);
