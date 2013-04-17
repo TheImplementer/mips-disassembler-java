@@ -38,7 +38,7 @@ public class StreamToIntegersTest {
 
     @Test
     public void performParsesInputStreamBytesAsLittleEndian() {
-        final byte[] streamContent = {0, 0, 0, 1};
+        final byte[] streamContent = {1, 0, 0, 0};
         final Integer got = Consumers.one(instance.perform(new ByteArrayInputStream(streamContent)));
         Assert.assertEquals(Integer.valueOf(1), got);
     }
