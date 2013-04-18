@@ -17,10 +17,9 @@ public class StreamToIntegers implements Delegate<List<Integer>, InputStream> {
     public List<Integer> perform(InputStream inputStream) {
         dbc.precondition(inputStream != null, "inputStream cannot be null");
         final DataInputStream dataInputStream = new DataInputStream(inputStream);
-        final List<Integer> integers = new LinkedList<Integer>();
+        final List<Integer> integers = new LinkedList<>();
         while (true) {
             try {
-                final byte[] buffer = new byte[4];
                 final Integer integer = Integer.valueOf(dataInputStream.readInt());
                 final ByteBuffer byteBuffer = ByteBuffer.allocate(4);
                 byteBuffer.order(ByteOrder.BIG_ENDIAN).putInt(integer).order(ByteOrder.LITTLE_ENDIAN).rewind();
