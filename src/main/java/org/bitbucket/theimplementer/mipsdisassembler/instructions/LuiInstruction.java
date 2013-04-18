@@ -29,6 +29,6 @@ public class LuiInstruction implements Instruction {
 
     @Override
     public String toString() {
-        return String.format("lui %s, 0x%s", rt, immediate);
+        return String.format("lui %s, 0x%02x", rt, immediate);
     }
 }

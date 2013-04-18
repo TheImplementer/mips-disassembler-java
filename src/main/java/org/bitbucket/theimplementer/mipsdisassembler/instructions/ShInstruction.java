@@ -31,6 +31,6 @@ public class ShInstruction implements Instruction {
 
     @Override
     public String toString() {
-        return String.format("sh %s, 0x%s(%s)", rt, immediate, rs);
+        return String.format("sh %s, 0x%02x(%s)", rt, immediate, rs);
     }
 }

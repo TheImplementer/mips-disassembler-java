@@ -31,6 +31,6 @@ public class LhInstruction implements Instruction {
 
     @Override
     public String toString() {
-        return String.format("lh %s, 0x%s(%s)", rt, immediate, rs);
+        return String.format("lh %s, 0x%02x(%s)", rt, immediate, rs);
     }
 }

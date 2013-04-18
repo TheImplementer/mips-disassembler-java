@@ -29,6 +29,6 @@ public class BltzInstruction implements Instruction {
 
     @Override
     public String toString() {
-        return String.format("bltz %s, 0x%s", rs, immediate);
+        return String.format("bltz %s, 0x%02x", rs, immediate);
     }
 }

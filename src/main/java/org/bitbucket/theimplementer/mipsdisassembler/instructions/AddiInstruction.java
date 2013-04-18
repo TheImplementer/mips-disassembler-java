@@ -31,6 +31,6 @@ public class AddiInstruction implements Instruction {
 
     @Override
     public String toString() {
-        return String.format("addi %s, %s, 0x%s", rt, rs, immediate);
+        return String.format("addi %s, %s, 0x%02x", rt, rs, immediate);
     }
 }

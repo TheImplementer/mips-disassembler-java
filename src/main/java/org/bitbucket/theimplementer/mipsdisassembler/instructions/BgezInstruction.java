@@ -29,6 +29,6 @@ public class BgezInstruction implements Instruction {
 
     @Override
     public String toString() {
-        return String.format("bgez %s, 0x%s", rs, immediate);
+        return String.format("bgez %s, 0x%02x", rs, immediate);
     }
 }
