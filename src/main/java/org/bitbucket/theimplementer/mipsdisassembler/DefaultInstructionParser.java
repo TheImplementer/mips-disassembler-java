@@ -4,6 +4,9 @@ import net.emaze.dysfunctional.contracts.dbc;
 import net.emaze.dysfunctional.dispatching.delegates.Delegate;
 import org.bitbucket.theimplementer.mipsdisassembler.instructions.Instruction;
 import org.bitbucket.theimplementer.mipsdisassembler.instructions.InstructionDecoder;
+import org.bitbucket.theimplementer.mipsdisassembler.instructions.NoInstructionDecoderFoundError;
+import org.bitbucket.theimplementer.mipsdisassembler.instructions.UnknownInstruction;
+import org.bitbucket.theimplementer.mipsdisassembler.instructions.UnknownInstructionException;
 
 public class DefaultInstructionParser implements Delegate<Instruction, Integer> {
 
@@ -16,16 +19,16 @@ public class DefaultInstructionParser implements Delegate<Instruction, Integer> 
 
     @Override
     public Instruction perform(Integer instructionAsInteger) {
-        final InstructionDecoder decoder = instructionDecoderSelector.perform(instructionAsInteger);
+        InstructionDecoder decoder;
+        try {
+            decoder = instructionDecoderSelector.perform(instructionAsInteger);
+        } catch (NoInstructionDecoderFoundError ex) {
+            return new UnknownInstruction();
+        }
         try {
             return decoder.perform(instructionAsInteger);
-        } catch (Exception ex) {
-            return new Instruction() {
-                @Override
-                public String toString() {
-                    return "Unknown instruction";
-                }
-            };
+        } catch (UnknownInstructionException ex) {
+            return new UnknownInstruction();
         }
     }
 }
