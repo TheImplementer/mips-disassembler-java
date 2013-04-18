@@ -45,9 +45,16 @@ public class RTypeInstructionDecoderTest {
     }
     
     @Test
-    public void canDecodeSllInstructions() {
-        final SllInstruction expected = new SllInstruction(Register.ZR, Register.ZR, 0);
+    public void canDecodeNopInstructions() {
+        final NopInstruction expected = new NopInstruction();
         final Instruction got = instance.perform(RTypeInstructionDecoder.SLL_INSTRUCTION_FUNCTION);
+        Assert.assertEquals(expected, got);
+    }
+    
+    @Test
+    public void canDecodeSllInstructions() {
+        final SllInstruction expected = new SllInstruction(Register.ZR, Register.ZR, 20);
+        final Instruction got = instance.perform(RTypeInstructionDecoder.SLL_INSTRUCTION_FUNCTION | 0x540);
         Assert.assertEquals(expected, got);
     }
 

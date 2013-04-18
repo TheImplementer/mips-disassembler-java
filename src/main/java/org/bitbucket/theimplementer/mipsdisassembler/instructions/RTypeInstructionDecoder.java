@@ -49,6 +49,9 @@ public class RTypeInstructionDecoder implements InstructionDecoder {
         final Register rsRegister = Register.fromValue((instruction.intValue() & RS_REGISTER_BITMASK) >> 21);
         switch (function) {
             case SLL_INSTRUCTION_FUNCTION:
+                if (instruction == 0) {
+                    return new NopInstruction();
+                }
                 return new SllInstruction(rdRegister, rtRegister, shiftAmount);
             case SRL_INSTRUCTION_FUNCTION:
                 return new SrlInstruction(rdRegister, rtRegister, shiftAmount);
