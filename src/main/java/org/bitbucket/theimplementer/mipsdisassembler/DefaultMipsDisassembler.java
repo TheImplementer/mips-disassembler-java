@@ -7,8 +7,11 @@ import org.bitbucket.theimplementer.mipsdisassembler.instructions.Instruction;
 
 import java.io.InputStream;
 import java.util.List;
+import net.emaze.dysfunctional.Consumers;
+import net.emaze.dysfunctional.Zips;
+import net.emaze.dysfunctional.tuples.Pair;
 
-public class DefaultMipsDisassembler implements Delegate<List<Instruction>, InputStream> {
+public class DefaultMipsDisassembler implements Delegate<List<Pair<Integer, Instruction>>, InputStream> {
 
     private final Delegate<Instruction, Integer> instructionParser;
 
@@ -18,9 +21,9 @@ public class DefaultMipsDisassembler implements Delegate<List<Instruction>, Inpu
     }
 
     @Override
-    public List<Instruction> perform(InputStream stream) {
+    public List<Pair<Integer, Instruction>> perform(InputStream stream) {
         final List<Integer> instructionsAsIntegers = new StreamToIntegers().perform(stream);
-        return Applications.map(instructionsAsIntegers, instructionParser);
+        final List<Instruction> instructions = Applications.map(instructionsAsIntegers, instructionParser);
+        return Consumers.all(Zips.shortest(instructionsAsIntegers, instructions));
     }
-
 }
