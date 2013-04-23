@@ -4,8 +4,8 @@ import javax.swing.table.AbstractTableModel;
 
 
 public class ContentTableModel extends AbstractTableModel {
-    public static final int COLUMN_COUNT = 2;
-    public static final String[] COLUMN_NAMES = new String[]{"Opcode", "Instruction"};
+    public static final int COLUMN_COUNT = 3;
+    public static final String[] COLUMN_NAMES = new String[]{"Offset", "Opcode", "Instruction"};
     private final Object[][] content;
 
     public ContentTableModel(Object[][] content) {
@@ -36,5 +36,7 @@ public class ContentTableModel extends AbstractTableModel {
     public boolean isCellEditable(int rowIndex, int columnIndex) {
         return false;
     }
+
+
 
 }

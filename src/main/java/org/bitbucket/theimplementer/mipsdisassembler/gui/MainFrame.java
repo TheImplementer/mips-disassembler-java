@@ -5,6 +5,7 @@ import net.emaze.dysfunctional.dispatching.delegates.Delegate;
 import net.emaze.dysfunctional.tuples.Pair;
 import org.bitbucket.theimplementer.mipsdisassembler.ApplicationConfiguration;
 import org.bitbucket.theimplementer.mipsdisassembler.instructions.Instruction;
+import org.bitbucket.theimplementer.mipsdisassembler.instructions.OpcodeAndInstruction;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.swing.*;
@@ -67,19 +68,25 @@ public class MainFrame extends JFrame {
     }
 
     public void loadFile(File file) throws FileNotFoundException {
-        final Delegate<List<Pair<Integer, Instruction>>, InputStream> mipsDisassembler = Casts.widen(context.getBean("mipsDisassembler"));
-        final List<Pair<Integer, Instruction>> opcodesAndInstructions = mipsDisassembler.perform(new FileInputStream(file));
-        updateContent(opcodesAndInstructions);
+        final Delegate<List<Pair<Integer, OpcodeAndInstruction>>, InputStream> mipsDisassembler = Casts.widen(context.getBean("mipsDisassembler"));
+        final List<Pair<Integer, OpcodeAndInstruction>> offsetsAndInstructions = mipsDisassembler.perform(new FileInputStream(file));
+        updateContent(offsetsAndInstructions);
     }
 
-    private void updateContent(java.util.List<Pair<Integer, Instruction>> opcodesAndInstructions) {
-        final Object[][] newContent = new Object[opcodesAndInstructions.size()][2];
-        for (int counter = 0; counter < opcodesAndInstructions.size(); counter++) {
-            final Pair<Integer, Instruction> opcodeAndInstruction = opcodesAndInstructions.get(counter);
-            newContent[counter][0] = String.format("%08X", opcodeAndInstruction.first().intValue());
-            newContent[counter][1] = opcodeAndInstruction.second();
+    private void updateContent(List<Pair<Integer, OpcodeAndInstruction>> offsetsAndInstructions) {
+        final Object[][] newContent = new Object[offsetsAndInstructions.size()][3];
+        for (int counter = 0; counter < offsetsAndInstructions.size(); counter++) {
+            final Pair<Integer, OpcodeAndInstruction> offsetAndInstruction = offsetsAndInstructions.get(counter);
+            final OpcodeAndInstruction opcodeAndInstruction = offsetAndInstruction.second();
+            newContent[counter][0] = String.format("%08X", offsetAndInstruction.first().intValue());
+            newContent[counter][1] = String.format("%08X", opcodeAndInstruction.getOpcode().intValue());
+            newContent[counter][2] = opcodeAndInstruction.getInstruction();
         }
         contentTable.setModel(new ContentTableModel(newContent));
         contentTable.getColumnModel().getColumn(0).setMaxWidth(100);
+        contentTable.getColumnModel().getColumn(1).setMaxWidth(100);
+        contentTable.getColumnModel().getColumn(0).setResizable(false);
+        contentTable.getColumnModel().getColumn(1).setResizable(false);
+        contentTable.getColumnModel().getColumn(2).setResizable(false);
     }
 }

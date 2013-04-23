@@ -1,6 +1,7 @@
 package org.bitbucket.theimplementer.mipsdisassembler;
 
 import net.emaze.dysfunctional.dispatching.delegates.Delegate;
+import net.emaze.dysfunctional.tuples.Pair;
 import org.bitbucket.theimplementer.mipsdisassembler.instructions.*;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -8,7 +9,6 @@ import org.springframework.context.annotation.Configuration;
 
 import java.io.InputStream;
 import java.util.List;
-import net.emaze.dysfunctional.tuples.Pair;
 
 @Configuration
 public class ApplicationConfiguration {
@@ -39,7 +39,7 @@ public class ApplicationConfiguration {
     }
 
     @Bean
-    public Delegate<List<Pair<Integer, Instruction>>, InputStream> mipsDisassembler(@Qualifier("instructionParser") Delegate<Instruction, Integer> instructionParser) {
+    public Delegate<List<Pair<Integer, OpcodeAndInstruction>>, InputStream> mipsDisassembler(@Qualifier("instructionParser") Delegate<Instruction, Integer> instructionParser) {
         return new DefaultMipsDisassembler(instructionParser);
     }
 }
