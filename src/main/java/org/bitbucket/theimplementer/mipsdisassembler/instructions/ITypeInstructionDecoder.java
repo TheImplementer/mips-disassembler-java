@@ -39,7 +39,7 @@ public class ITypeInstructionDecoder implements InstructionDecoder {
         final Register rsRegister = Register.fromValue((instruction.intValue() & RS_REGISTER_BITMASK) >> 21);
         switch (opcode) {
             case BLTZ_BGEZ_INSTRUCTION_OPCODE:
-                if (rtRegister.equals(0)) {
+                if (rtRegister.equals(Register.ZR)) {
                     return new BltzInstruction(rsRegister, immediate);
                 } else {
                     return new BgezInstruction(rsRegister, immediate);
