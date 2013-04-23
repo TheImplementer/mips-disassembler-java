@@ -185,6 +185,34 @@ public class ITypeInstructionDecoderTest {
         Assert.assertEquals(expected, got);
     }
 
+    @Test
+    public void canDecodeLwlInstructions() {
+        final LwlInstruction expected = new LwlInstruction(Register.ZR, Register.ZR, (short) 0);
+        final Instruction got = instance.perform(ITypeInstructionDecoder.LWL_INSTRUCTION_OPCODE << 26);
+        Assert.assertEquals(expected, got);
+    }
+
+    @Test
+    public void canDecodeLwrInstructions() {
+        final LwrInstruction expected = new LwrInstruction(Register.ZR, Register.ZR, (short) 0);
+        final Instruction got = instance.perform(ITypeInstructionDecoder.LWR_INSTRUCTION_OPCODE << 26);
+        Assert.assertEquals(expected, got);
+    }
+
+    @Test
+    public void canDecodeSwlInstructions() {
+        final SwlInstruction expected = new SwlInstruction(Register.ZR, Register.ZR, (short) 0);
+        final Instruction got = instance.perform(ITypeInstructionDecoder.SWL_INSTRUCTION_OPCODE << 26);
+        Assert.assertEquals(expected, got);
+    }
+
+    @Test
+    public void canDecodeSwrInstructions() {
+        final SwrInstruction expected = new SwrInstruction(Register.ZR, Register.ZR, (short) 0);
+        final Instruction got = instance.perform(ITypeInstructionDecoder.SWR_INSTRUCTION_OPCODE << 26);
+        Assert.assertEquals(expected, got);
+    }
+
     @Test(expected = UnknownInstructionException.class)
     public void performThrowsIfInstructionIsNotSupported() {
         final int unsupportedOpcode = 0xff;

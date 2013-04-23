@@ -24,12 +24,16 @@ public class ITypeInstructionDecoder implements InstructionDecoder {
     public static final int LUI_INSTRUCTION_OPCODE = 0x0f;
     public static final int LB_INSTRUCTION_OPCODE = 0x20;
     public static final int LH_INSTRUCTION_OPCODE = 0x21;
+    public static final int LWL_INSTRUCTION_OPCODE = 0x22;
     public static final int LW_INSTRUCTION_OPCODE = 0x23;
     public static final int LBU_INSTRUCTION_OPCODE = 0x24;
     public static final int LHU_INSTRUCTION_OPCODE = 0x25;
+    public static final int LWR_INSTRUCTION_OPCODE = 0x26;
     public static final int SB_INSTRUCTION_OPCODE = 0x28;
     public static final int SH_INSTRUCTION_OPCODE = 0x29;
+    public static final int SWL_INSTRUCTION_OPCODE = 0x2a;
     public static final int SW_INSTRUCTION_OPCODE = 0x2b;
+    public static final int SWR_INSTRUCTION_OPCODE = 0x2e;
 
     @Override
     public Instruction perform(Integer instruction) {
@@ -84,6 +88,14 @@ public class ITypeInstructionDecoder implements InstructionDecoder {
                 return new ShInstruction(rtRegister, rsRegister, immediate);
             case SW_INSTRUCTION_OPCODE:
                 return new SwInstruction(rtRegister, rsRegister, immediate);
+            case LWL_INSTRUCTION_OPCODE:
+                return new LwlInstruction(rtRegister, rsRegister, immediate);
+            case LWR_INSTRUCTION_OPCODE:
+                return new LwrInstruction(rtRegister, rsRegister, immediate);
+            case SWL_INSTRUCTION_OPCODE:
+                return new SwlInstruction(rtRegister, rsRegister, immediate);
+            case SWR_INSTRUCTION_OPCODE:
+                return new SwrInstruction(rtRegister, rsRegister, immediate);
         }
 
         throw new UnknownInstructionException(opcode);
