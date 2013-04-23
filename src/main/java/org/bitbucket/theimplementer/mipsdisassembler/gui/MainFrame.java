@@ -8,10 +8,7 @@ import org.bitbucket.theimplementer.mipsdisassembler.instructions.Instruction;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -28,7 +25,6 @@ public class MainFrame extends JFrame {
     private JMenuItem aboutMenuItem;
     private JSeparator fileMenuSeparator;
     private JTable contentTable;
-
     final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ApplicationConfiguration.class);
 
     public MainFrame() {
@@ -83,31 +79,7 @@ public class MainFrame extends JFrame {
             newContent[counter][0] = String.format("%08X", opcodeAndInstruction.first().intValue());
             newContent[counter][1] = opcodeAndInstruction.second();
         }
-        contentTable.setModel(new DefaultTableModel(newContent, new String[]{"Opcode", "Instruction"}));
+        contentTable.setModel(new ContentTableModel(newContent));
         contentTable.getColumnModel().getColumn(0).setMaxWidth(100);
-        contentTable.getColumnModel().getColumn(0).setCellEditor(null);
-    }
-
-    public static class OpenFileActionListener implements ActionListener {
-
-        private final MainFrame parent;
-
-        public OpenFileActionListener(MainFrame parent) {
-            this.parent = parent;
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent event) {
-            final JFileChooser openFileChooser = new JFileChooser();
-            final int userOpenAction = openFileChooser.showOpenDialog(parent);
-            if (userOpenAction == JFileChooser.APPROVE_OPTION) {
-                final File selectedFile = openFileChooser.getSelectedFile();
-                try {
-                    parent.loadFile(selectedFile);
-                } catch (FileNotFoundException ex) {
-                    JOptionPane.showMessageDialog(parent, "Cannot find selected file.");
-                }
-            }
-        }
     }
 }
