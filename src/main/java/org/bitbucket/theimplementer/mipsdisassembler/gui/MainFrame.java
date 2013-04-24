@@ -1,5 +1,8 @@
 package org.bitbucket.theimplementer.mipsdisassembler.gui;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.event.KeyEvent;
 import org.bitbucket.theimplementer.mipsdisassembler.InstructionOffsetDisplacer;
 import net.emaze.dysfunctional.Casts;
 import net.emaze.dysfunctional.dispatching.delegates.Delegate;
@@ -8,16 +11,24 @@ import org.bitbucket.theimplementer.mipsdisassembler.ApplicationConfiguration;
 import org.bitbucket.theimplementer.mipsdisassembler.instructions.OpcodeAndInstruction;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.List;
+import javax.swing.Action;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
+import javax.swing.JTable;
+import javax.swing.KeyStroke;
+import javax.swing.ListSelectionModel;
 import net.emaze.dysfunctional.Applications;
+import net.emaze.dysfunctional.options.Box;
 import org.bitbucket.theimplementer.mipsdisassembler.PsxExeLoader;
 import org.bitbucket.theimplementer.mipsdisassembler.PsxExecutable;
 
@@ -33,10 +44,12 @@ public class MainFrame extends JFrame {
     private JMenuItem aboutMenuItem;
     private JSeparator fileMenuSeparator;
     private JTable contentTable;
+    private Box<String> lastSearchedString;
     final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ApplicationConfiguration.class);
 
     public MainFrame() {
         initComponents();
+        registerEvents();
     }
 
     private void initComponents() {
@@ -53,7 +66,7 @@ public class MainFrame extends JFrame {
         fileMenu.add(fileMenuSeparator);
         fileMenu.add(exitMenuItem);
         menuBar.add(fileMenu);
-        
+
         searchMenu = new JMenu("Search");
         searchMenuItem = new JMenuItem("Search instruction");
         searchMenu.add(searchMenuItem);
@@ -73,13 +86,24 @@ public class MainFrame extends JFrame {
         contentTable.setFillsViewportHeight(true);
         contentTable.setDragEnabled(false);
         contentTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        searchMenuItem.addActionListener(new SearchInstructionActionListener(contentTable));
+        lastSearchedString = new Box<>();
+
         final JScrollPane scrollPane = new JScrollPane(contentTable);
         add(scrollPane);
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         setSize(800, 600);
+    }
+
+    private void registerEvents() {
+        searchMenuItem.addActionListener(new SearchInstructionActionListener(contentTable, lastSearchedString));
+        registerGlobalKeyEvent(KeyStroke.getKeyStroke(KeyEvent.VK_F, KeyEvent.CTRL_DOWN_MASK), new SearchGlobalKeyAction(contentTable, lastSearchedString), "SEARCH");
+    }
+
+    private void registerGlobalKeyEvent(KeyStroke keyStroke, Action action, Object actionMapKey) {
+        getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(keyStroke, actionMapKey);
+        getRootPane().getActionMap().put(actionMapKey, action);
     }
 
     public void loadFile(File file) throws FileNotFoundException {
