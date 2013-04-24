@@ -4,17 +4,18 @@ import net.emaze.dysfunctional.Casts;
 import net.emaze.dysfunctional.dispatching.delegates.Delegate;
 import net.emaze.dysfunctional.tuples.Pair;
 import org.bitbucket.theimplementer.mipsdisassembler.ApplicationConfiguration;
-import org.bitbucket.theimplementer.mipsdisassembler.instructions.Instruction;
 import org.bitbucket.theimplementer.mipsdisassembler.instructions.OpcodeAndInstruction;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.List;
+import org.bitbucket.theimplementer.mipsdisassembler.PsxExeLoader;
+import org.bitbucket.theimplementer.mipsdisassembler.PsxExecutable;
 
 public class MainFrame extends JFrame {
 
@@ -69,7 +70,8 @@ public class MainFrame extends JFrame {
 
     public void loadFile(File file) throws FileNotFoundException {
         final Delegate<List<Pair<Integer, OpcodeAndInstruction>>, InputStream> mipsDisassembler = Casts.widen(context.getBean("mipsDisassembler"));
-        final List<Pair<Integer, OpcodeAndInstruction>> offsetsAndInstructions = mipsDisassembler.perform(new FileInputStream(file));
+        final PsxExecutable psxExecutable = new PsxExeLoader().load(file);
+        final List<Pair<Integer, OpcodeAndInstruction>> offsetsAndInstructions = mipsDisassembler.perform(new ByteArrayInputStream(psxExecutable.getTextSection()));
         updateContent(offsetsAndInstructions);
     }
 
