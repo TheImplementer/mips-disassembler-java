@@ -18,15 +18,15 @@ public class DefaultInstructionParser implements Delegate<Instruction, Integer> 
     }
 
     @Override
-    public Instruction perform(Integer instructionAsInteger) {
+    public Instruction perform(Integer opcode) {
         InstructionDecoder decoder;
         try {
-            decoder = instructionDecoderSelector.perform(instructionAsInteger);
+            decoder = instructionDecoderSelector.perform(opcode);
         } catch (NoInstructionDecoderFoundError ex) {
             return new UnknownInstruction();
         }
         try {
-            return decoder.perform(instructionAsInteger);
+            return decoder.perform(opcode);
         } catch (UnknownInstructionException ex) {
             return new UnknownInstruction();
         }
