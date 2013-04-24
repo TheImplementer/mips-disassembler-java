@@ -16,7 +16,10 @@ public class SearchInstructionActionListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
-        final String searchString = JOptionPane.showInputDialog(null);
+        final String searchString = JOptionPane.showInputDialog(table, "Insert text to find", "Find an instruction", JOptionPane.PLAIN_MESSAGE);
+        if (searchString == null) {
+            return;
+        }
         final int selectedRow = table.getSelectionModel().getMinSelectionIndex();
         final TableModel tableModel = table.getModel();
         for (int count = selectedRow + 1; count != tableModel.getRowCount(); ++count) {
