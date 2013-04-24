@@ -10,6 +10,8 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -23,9 +25,11 @@ public class MainFrame extends JFrame {
 
     private JMenuBar menuBar;
     private JMenu fileMenu;
+    private JMenu searchMenu;
     private JMenu helpMenu;
     private JMenuItem openMenuItem;
     private JMenuItem exitMenuItem;
+    private JMenuItem searchMenuItem;
     private JMenuItem aboutMenuItem;
     private JSeparator fileMenuSeparator;
     private JTable contentTable;
@@ -49,6 +53,11 @@ public class MainFrame extends JFrame {
         fileMenu.add(fileMenuSeparator);
         fileMenu.add(exitMenuItem);
         menuBar.add(fileMenu);
+        
+        searchMenu = new JMenu("Search");
+        searchMenuItem = new JMenuItem("Search instruction");
+        searchMenu.add(searchMenuItem);
+        menuBar.add(searchMenu);
 
         helpMenu = new JMenu("?");
         aboutMenuItem = new JMenuItem("About");
@@ -62,6 +71,9 @@ public class MainFrame extends JFrame {
         contentTable = new JTable();
         contentTable.setPreferredScrollableViewportSize(new Dimension(300, 50));
         contentTable.setFillsViewportHeight(true);
+        contentTable.setDragEnabled(false);
+        contentTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        searchMenuItem.addActionListener(new SearchInstructionActionListener(contentTable));
         final JScrollPane scrollPane = new JScrollPane(contentTable);
         add(scrollPane);
 
