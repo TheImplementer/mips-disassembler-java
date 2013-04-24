@@ -24,7 +24,7 @@ public class StreamToIntegers implements Delegate<List<Pair<Integer, Integer>>, 
             try {
                 final Integer integer = Integer.valueOf(dataInputStream.readInt());
                 final ByteBuffer byteBuffer = ByteBuffer.allocate(4);
-                byteBuffer.order(ByteOrder.BIG_ENDIAN).putInt(integer).order(ByteOrder.LITTLE_ENDIAN).rewind();
+                byteBuffer.putInt(integer).order(ByteOrder.LITTLE_ENDIAN).rewind();
                 offsetsAndIntegers.add(Pair.of(offset, byteBuffer.getInt()));
                 offset += 4;
             } catch (IOException e) {
