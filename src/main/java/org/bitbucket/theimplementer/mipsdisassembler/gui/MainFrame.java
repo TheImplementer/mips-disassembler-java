@@ -1,5 +1,6 @@
 package org.bitbucket.theimplementer.mipsdisassembler.gui;
 
+import org.bitbucket.theimplementer.mipsdisassembler.InstructionOffsetDisplacer;
 import net.emaze.dysfunctional.Casts;
 import net.emaze.dysfunctional.dispatching.delegates.Delegate;
 import net.emaze.dysfunctional.tuples.Pair;
@@ -14,6 +15,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.List;
+import net.emaze.dysfunctional.Applications;
 import org.bitbucket.theimplementer.mipsdisassembler.PsxExeLoader;
 import org.bitbucket.theimplementer.mipsdisassembler.PsxExecutable;
 
@@ -72,7 +74,7 @@ public class MainFrame extends JFrame {
         final Delegate<List<Pair<Integer, OpcodeAndInstruction>>, InputStream> mipsDisassembler = Casts.widen(context.getBean("mipsDisassembler"));
         final PsxExecutable psxExecutable = new PsxExeLoader().load(file);
         final List<Pair<Integer, OpcodeAndInstruction>> offsetsAndInstructions = mipsDisassembler.perform(new ByteArrayInputStream(psxExecutable.getTextSection()));
-        updateContent(offsetsAndInstructions);
+        updateContent(Applications.map(offsetsAndInstructions, new InstructionOffsetDisplacer()));
     }
 
     private void updateContent(List<Pair<Integer, OpcodeAndInstruction>> offsetsAndInstructions) {
