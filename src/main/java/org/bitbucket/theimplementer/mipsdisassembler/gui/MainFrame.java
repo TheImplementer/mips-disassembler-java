@@ -99,6 +99,7 @@ public class MainFrame extends JFrame {
     private void registerEvents() {
         searchMenuItem.addActionListener(new SearchInstructionActionListener(contentTable, lastSearchedString));
         registerGlobalKeyEvent(KeyStroke.getKeyStroke(KeyEvent.VK_F, KeyEvent.CTRL_DOWN_MASK), new SearchGlobalKeyAction(contentTable, lastSearchedString), "SEARCH");
+        registerGlobalKeyEvent(KeyStroke.getKeyStroke(KeyEvent.VK_F3, 0), new SearchAgainGlobalKeyAction(contentTable, lastSearchedString), "SEARCH_AGAIN");
     }
 
     private void registerGlobalKeyEvent(KeyStroke keyStroke, Action action, Object actionMapKey) {

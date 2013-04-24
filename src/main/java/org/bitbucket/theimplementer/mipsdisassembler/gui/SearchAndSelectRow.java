@@ -27,6 +27,6 @@ public class SearchAndSelectRow implements Action<String> {
                 return;
             }
         }
-        JOptionPane.showMessageDialog(table, "Cannot find specified value");
+        JOptionPane.showMessageDialog(null, "Cannot find specified value");
     }
 }
