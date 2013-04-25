@@ -26,6 +26,7 @@ import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.KeyStroke;
 import javax.swing.ListSelectionModel;
+import javax.swing.UIManager;
 import net.emaze.dysfunctional.Applications;
 import net.emaze.dysfunctional.options.Box;
 import org.bitbucket.theimplementer.mipsdisassembler.PsxExeLoader;
@@ -54,6 +55,12 @@ public class MainFrame extends JFrame {
 
     private void initComponents() {
         setTitle("Mips Disassembler");
+        final String applicationLaf = context.getEnvironment().getProperty("application.laf");
+        try {
+            UIManager.setLookAndFeel(applicationLaf);
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
 
         menuBar = new JMenuBar();
 

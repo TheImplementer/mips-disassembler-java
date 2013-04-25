@@ -9,8 +9,10 @@ import org.springframework.context.annotation.Configuration;
 
 import java.io.InputStream;
 import java.util.List;
+import org.springframework.context.annotation.PropertySource;
 
 @Configuration
+@PropertySource("classpath:org/bitbucket/theimplementer/mipsdisassembler/application.properties")
 public class ApplicationConfiguration {
 
     @Bean
