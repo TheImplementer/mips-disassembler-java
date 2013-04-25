@@ -131,6 +131,8 @@ public class MainFrame extends JFrame {
             newContent[counter][2] = opcodeAndInstruction.getInstruction();
         }
         contentTable.setModel(new ContentTableModel(newContent));
+        contentTable.getTableHeader().setReorderingAllowed(false);
+        contentTable.getTableHeader().setResizingAllowed(false);
         contentTable.getColumnModel().getColumn(0).setMaxWidth(100);
         contentTable.getColumnModel().getColumn(1).setMaxWidth(100);
         contentTable.getColumnModel().getColumn(0).setResizable(false);
