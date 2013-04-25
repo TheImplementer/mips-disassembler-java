@@ -59,7 +59,7 @@ public class MainFrame extends JFrame {
 
         fileMenu = new JMenu("File");
         openMenuItem = new JMenuItem("Open");
-        openMenuItem.addActionListener(new OpenFileActionListener(this));
+        openMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK, true));
         fileMenuSeparator = new JSeparator();
         exitMenuItem = new JMenuItem("Exit");
         fileMenu.add(openMenuItem);
@@ -102,6 +102,7 @@ public class MainFrame extends JFrame {
     }
 
     private void registerEvents() {
+        openMenuItem.addActionListener(new OpenFileActionListener(this));
         searchMenuItem.addActionListener(new SearchInstructionActionListener(contentTable, lastSearchedString));
         searchAgainMenuItem.addActionListener(new SearchAgainInstructionActionListener(contentTable, lastSearchedString));
     }
