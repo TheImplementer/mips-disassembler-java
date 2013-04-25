@@ -2,6 +2,7 @@ package org.bitbucket.theimplementer.mipsdisassembler.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import org.bitbucket.theimplementer.mipsdisassembler.InstructionOffsetDisplacer;
 import net.emaze.dysfunctional.Casts;
@@ -16,8 +17,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.List;
-import javax.swing.Action;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -41,6 +40,7 @@ public class MainFrame extends JFrame {
     private JMenuItem openMenuItem;
     private JMenuItem exitMenuItem;
     private JMenuItem searchMenuItem;
+    private JMenuItem searchAgainMenuItem;
     private JMenuItem aboutMenuItem;
     private JSeparator fileMenuSeparator;
     private JTable contentTable;
@@ -68,9 +68,14 @@ public class MainFrame extends JFrame {
         menuBar.add(fileMenu);
 
         searchMenu = new JMenu("Search");
-        searchMenuItem = new JMenuItem("Search instruction");
+        searchMenuItem = new JMenuItem("Search");
+        searchMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F, ActionEvent.CTRL_MASK, true));
         searchMenu.add(searchMenuItem);
+        searchAgainMenuItem = new JMenuItem("Search again");
+        searchAgainMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F3, 0, true));
+        searchMenu.add(searchAgainMenuItem);
         menuBar.add(searchMenu);
+
 
         helpMenu = new JMenu("?");
         aboutMenuItem = new JMenuItem("About");
@@ -98,13 +103,7 @@ public class MainFrame extends JFrame {
 
     private void registerEvents() {
         searchMenuItem.addActionListener(new SearchInstructionActionListener(contentTable, lastSearchedString));
-        registerGlobalKeyEvent(KeyStroke.getKeyStroke(KeyEvent.VK_F, KeyEvent.CTRL_DOWN_MASK), new SearchGlobalKeyAction(contentTable, lastSearchedString), "SEARCH");
-        registerGlobalKeyEvent(KeyStroke.getKeyStroke(KeyEvent.VK_F3, 0), new SearchAgainGlobalKeyAction(contentTable, lastSearchedString), "SEARCH_AGAIN");
-    }
-
-    private void registerGlobalKeyEvent(KeyStroke keyStroke, Action action, Object actionMapKey) {
-        getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(keyStroke, actionMapKey);
-        getRootPane().getActionMap().put(actionMapKey, action);
+        searchAgainMenuItem.addActionListener(new SearchAgainInstructionActionListener(contentTable, lastSearchedString));
     }
 
     public void loadFile(File file) throws FileNotFoundException {
